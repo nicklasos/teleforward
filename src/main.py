@@ -464,8 +464,6 @@ async def forward_message(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.message.reply_text("I'm not in any groups yet. Add me to the groups where you want to forward messages.")
         return
     
-    success_count = 0
-    failed_chats = []
     list_changed = False
     
     for target_chat_id in list(TARGET_CHATS):  # Use a copy of the list since we might modify it
@@ -476,7 +474,6 @@ async def forward_message(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                 from_chat_id=chat_id,
                 message_id=message.message_id
             )
-            success_count += 1
         except Exception as e:
             error_msg = str(e).lower()
             logger.error(f"Failed to forward message to {target_chat_id}: {e}")
@@ -484,20 +481,11 @@ async def forward_message(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             # Remove the chat if we can't send messages to it anymore
             if any(reason in error_msg for reason in ["blocked", "not found", "chat not found", "kicked", "left"]):
                 TARGET_CHATS.remove(target_chat_id)
-                failed_chats.append(f"{target_chat_id} (removed)")
                 list_changed = True
-            else:
-                failed_chats.append(f"{target_chat_id}")
     
     # Save chat list if it was changed
     if list_changed:
         save_chats()
-    
-    status_msg = f"Message forwarded to {success_count}/{len(TARGET_CHATS) + (len(failed_chats) if list_changed else 0)} chats."
-    if failed_chats:
-        status_msg += f"\nFailed to send to: {', '.join(failed_chats)}"
-    
-    await update.message.reply_text(status_msg)
 
 def save_chats():
     """Save current chat list to file for persistence"""

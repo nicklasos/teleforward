@@ -4,7 +4,7 @@ install:
 	pip install -r requirements.txt
 
 run:
-	. venv/bin/activate && nohup python src/main.py --instance=forward > bot.log 2>&1 & echo $$! > bot_dude.pid
+	. venv/bin/activate && nohup python src/main.py --instance=forward > bot.log 2>&1 & echo $$! > bot_forward.pid
 
 stop:
 	pkill -f "python src/main.py --instance=forward"

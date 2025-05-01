@@ -1,0 +1,31 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## Task: Create a standard Python project structure
+
+- [ ] Initialize a new project named `teleforward`
+- [ ] Set up a virtual environment using `venv`
+- [ ] Create a `Makefile` with the following commands:
+  - [ ] `make install` — install dependencies from `requirements.txt`
+  - [ ] `make run` — run the main Python script
+- [ ] Create a `src/` directory and place `main.py` inside
+- [ ] Add a `README.md` with the following instructions:
+  - [ ] How to create and activate the virtual environment
+  - [ ] How to install dependencies
+  - [ ] How to run the project
+- [ ] Add a `.gitignore` file for a typical Python project
+
+## Task: Set up unit testing infrastructure
+
+- [ ] Create a `tests/` directory for test files
+- [ ] Add test dependencies to `requirements.txt`:
+  - [ ] `pytest` - for running tests
+  - [ ] `pytest-cov` - for test coverage
+  - [ ] `pytest-mock` - for mocking in tests
+- [ ] Create a basic test configuration in `pytest.ini`
+- [ ] Add test commands to `Makefile`:
+  - [ ] `make test` - run all tests
+  - [ ] `make test-cov` - run tests with coverage report
+- [ ] Create a sample test file to demonstrate the testing structure
